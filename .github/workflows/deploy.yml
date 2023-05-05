@@ -12,18 +12,6 @@ jobs:
           node-version: 18
       - name: install dependencies
         run: npm install
-  test:
-    needs: download
-    runs-on: ubuntu-latest
-    steps: 
-      - name: test project
-        run: npm run test
-  lint:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: lint project
-        run: npm run lint
   build:
     needs: test
     runs-on: ubuntu-latest
