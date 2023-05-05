@@ -1,5 +1,5 @@
-name: Lint, Test, and Build
-on: push
+name: Test and Build
+on: [push, workflow_dispatch]
 jobs:
   download:
     runs-on: ubuntu-latest
