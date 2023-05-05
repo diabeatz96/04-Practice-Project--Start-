@@ -1,32 +1,38 @@
-name: Deploy Project
+name: Test and Build
 on: [push, workflow_dispatch]
 jobs:
-  test:
+  download:
     runs-on: ubuntu-latest
     steps:
-      - name: Get code
+      - name: get code
         uses: actions/checkout@v3
-      - name: Install NodeJS
+      - name: install nodejs
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Install dependencies
-        run: npm ci
-      - name: Run tests
-        run: npm test
-  deploy:
+      - name: install dependencies
+        run: npm install
+  test:
+    needs: download
+    runs-on: ubuntu-latest
+    steps: 
+      - name: test project
+        run: npm run test
+  lint:
     needs: test
-    runs-on : ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
-      - name: Get code
-        uses: actions/checkout@v3
-      - name: Install NodeJS
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install dependencies
-        run: npm ci
-      - name: Build project
+      - name: lint project
+        run: npm run lint
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: build project
         run: npm run build
-      - name: Deploy Test
-        run: echo "Deploying to test environment"
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy project
+        run: echo "Deploying to production environment"
