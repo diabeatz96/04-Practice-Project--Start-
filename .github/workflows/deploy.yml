@@ -11,6 +11,8 @@ jobs:
         with:
           node-version: 18
       - name: install dependencies
+        run: npm cache clean -f
+        run: rm -rf node_modules
         run: npm install
   build:
     runs-on: ubuntu-latest
