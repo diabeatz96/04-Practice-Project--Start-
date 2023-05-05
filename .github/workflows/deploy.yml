@@ -1,5 +1,5 @@
 name: "Lint, Test, and Build"
-on: push
+on: [push]
 jobs:
   download:
     runs-on: ubuntu-latest
