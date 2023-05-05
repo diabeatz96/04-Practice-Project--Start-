@@ -11,7 +11,7 @@ jobs:
         with:
           node-version: 18
       - name: install dependencies
-        run: npm ci
+        run: npm install
   test:
     needs: download
     runs-on: ubuntu-latest
