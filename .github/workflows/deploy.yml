@@ -1,0 +1,38 @@
+name: "Lint, Test, and Build"
+on: push
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get code
+      - uses: actions/checkout@v3
+      - name: install nodejs
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: install dependencies
+        run: npm ci
+  lint:
+    needs: download
+    runs-on: ubuntu-latest
+    steps:
+      - name: lint project
+        run: npm run lint
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps: 
+      - name: test project
+        run: npm run test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: build project
+        run: npm run build
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy project
+        run: echo "Deploying to production environment"
