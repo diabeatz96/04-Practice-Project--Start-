@@ -35,19 +35,20 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     needs: test
-    - name: get code
-      uses: actions/checkout@v3
-    - name: install nodejs
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
-    - name: install dependencies
-      run: |
-        npm cache clean -f
-        rm -rf node_modules
-        npm install
-    - name: run lint
-      run: npm run lint
+    steps:
+      - name: get code
+        uses: actions/checkout@v3
+      - name: install nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: install dependencies
+        run: |
+          npm cache clean -f
+          rm -rf node_modules
+          npm install
+      - name: run lint
+        run: npm run lint
   build:
     runs-on: ubuntu-latest
     needs: test
